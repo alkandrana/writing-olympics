@@ -4,12 +4,14 @@ import goalRouter from "./routers/goal.router.js";
 const app = express();
 const port = 3000;
 
+app.set('view engine', 'ejs')
 app.use(express.json());
 
 app.use("/goals", goalRouter);
 
-app.get("/ping", (req, res) => {
-	res.json({message: "pong" }).status(200);
+app.get("/", (req, res) => {
+	console.log("Here");
+    res.render("index", {text: 'Your Goals:'});
 });
 
 app.listen(port, () => {
