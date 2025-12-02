@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title><%= goal.title %></title>
+  </head>
+  <body>
+  <h1><%= goal.title %></h1>
+  <ul>
+      <li>Start Date: <%= goal.start %></li>
+      <li>End Date: <%= goal.stop %></li>
+      <li>Target: <%= goal.target %></li>
+      <li><a href="/goals/delete/<%= goal.id %>">Delete</a></li>
+  </ul>
+  <table>
+      <thead>
+      <tr>
+          <th>Date</th>
+          <th>Start Time</th>
+          <th>Stop Time</th>
+          <th>Words Written</th>
+          <th>Scene ID</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%= for (let ses of goal.sessions){ %>
+      <tr>
+          <td><%= ses.start.getFullYear() + "-" + ses.start.getMonth() + "-" + ses.start.getDate() %></td>
+          <td><%= ses.start.getHours() + ":" + ses.start.getMinutes() + ":" + ses.start.getSeconds() %></td>
+          <td><%= ses.stop.getHours() + ":" + ses.stop.getMinutes() + ":" + ses.stop.getSeconds() %></td>
+          <td><%= ses.words.toLocaleString() %></td>
+          <td><%= ses.scene %></td>
+      </tr>
+      <%= } %>
+      </tbody>
+  </table>
+  </body>
+</html>
+

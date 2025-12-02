@@ -37,7 +37,6 @@ out/
 
 # Prisma generated client
 prisma/client/
-prisma/migrations/
 /generated/prisma
 
 # Coverage output

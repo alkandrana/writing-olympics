@@ -2,17 +2,21 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Writing Olympics</title>
+    <title>Your Goals</title>
 
 </head>
 <body>
-<h1>Writing Olympics</h1>
-<!--<p><%= locals.text %></p>-->
+<h1>Goals:</h1>
+<% if (goals.length === 0) { %>
+    <h3>No Goals Found</h3>
+<% } else { %>
     <ul>
       <li><%= locals.goals[0].title%></li>
       <li><%= locals.goals[0].start.toLocaleString()%></li>
       <li><%= locals.goals[0].stop.toLocaleString()%></li>
       <li><%= locals.goals[0].target.toLocaleString()%></li>
+      <li><<a href="/goals/<%= goals[0].id %>">View Details</a></li>
     </ul>
+<% } %>
 </body>
 </html>

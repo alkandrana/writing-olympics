@@ -27,6 +27,7 @@ model Session {
 	start DateTime
 	stop DateTime
 	words Int
+  sceneId String
 	goal Goal @relation(fields: [goalId], references: [id])
 	goalId Int
 }

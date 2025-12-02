@@ -1,4 +1,5 @@
 import { prisma } from '../../lib/prisma.js';
+import { formatDate } from '../../lib/dateLib.js'
 
 const goalClient = prisma.goal;
 
@@ -11,16 +12,14 @@ export const getAllGoals = async (req, res) => {
 			},
 		});
     console.log(allGoals);
-    res.render("index", { goals: allGoals })
-//	  res.status(200).json({data: allGoals});
-    // res.send(console.log("Goals: " + data));
+    res.render("goals/index", { goals: allGoals })
 	} catch (e) {
 		console.log(e);
 	}
-  // res.send("Get All Goals");
 };
 
 // get unique
+// /goals/id
 export const getGoalById = async (req, res) => {
 	const goalId = parseInt(req.params.id);
 	if (isNaN(goalId)){
@@ -37,11 +36,12 @@ export const getGoalById = async (req, res) => {
 			},
 		});
         console.log(goal);
-		res.status(200).json({ data: goal });
+		res.render("goals/details", { goal: goal });
 	} catch (e) {
 		console.log(e);
 	}
 };
+// goals/edit/id
 export const editGoal = async (req, res) => {
     const goalId = parseInt(req.params.id);
     if (isNaN(goalId)) {
@@ -72,18 +72,40 @@ export const editGoal = async (req, res) => {
 };
 
 // add
+// goals/add/
 export const createGoal = async (req, res) => {
-	// try {
-	// 	const goalData = req.body
-	// 	const goal = await goalClient.create({
-	// 		data: goalData,
-	// 	});
-    //
-	// 	res.status(200).json({ data: goal });
-	// } catch (e) {
-	// 	console.log(e);
-	// }
-    console.log("In Poster");
+	let target = parseInt(req.body.target);
+    if (isNaN(target)){
+        return res.render("add", { goal: req.body});
+    } else {
+        req.body.target = target;
+    }
+    let startDate = formatDate(req.body.start);
+    let endDate = formatDate(req.body.stop);
+    // validate dates
+    if (startDate === "Invalid date" || endDate === "Invalid date") {
+        return res.redirect('add', {
+            goal: req.body,
+            message: "Invalid date. Make sure dates are in the format: 'YYYY-MM-DD'"
+        });
+    } else {
+        // convert date properties to proper format
+        req.body.start = startDate;
+        req.body.stop = endDate;
+        req.body.target = target;
+    }
+    console.log(req.body);
+    /*try {
+		const goalData = req.body
+		const goal = await goalClient.create({
+			data: goalData,
+		});
+
+		res.status(200).json({ data: goal });
+	} catch (e) {
+		console.log(e);
+	}*/
+    res.redirect(`goals/details/${1}`);
 };
 
 // update
@@ -94,18 +116,18 @@ export const updateGoal = async (req, res) => {
 		return res.status(400).send('Not  a number');
 	}
 
-    let startDate = req.body.start;
-    let endDate = req.body.stop;
+    let startDate = formatDate(req.body.start);
+    let endDate = formatDate(req.body.stop);
     // validate dates
-    if (!(/\d{4}-\d{2}-\d{2}/.test(startDate)) || !(/\d{4}-\d{2}-\d{2}/.test(endDate))){
+    if (startDate === "Invalid date" || endDate === "Invalid date") {
         return res.redirect('goals/edit', {
             goal: req.body,
             message: "Invalid date. Make sure dates are in the format: 'YYYY-MM-DD'"
         });
     } else {
         // convert date properties to proper format
-        req.body.start = startDate + 'T00:00:00.000Z';
-        req.body.stop = endDate + 'T00:00:00.000Z';
+        req.body.start = startDate;
+        req.body.stop = endDate;
         req.body.target = target;
     }
 
