@@ -7,7 +7,12 @@
 </head>
 <body>
 <h1>Writing Olympics</h1>
-<p><%= locals.text %></p>
-<%= for ()%>
+<!--<p><%= locals.text %></p>-->
+    <ul>
+      <li><%= locals.goals[0].title%></li>
+      <li><%= locals.goals[0].start.toLocaleString()%></li>
+      <li><%= locals.goals[0].stop.toLocaleString()%></li>
+      <li><%= locals.goals[0].target.toLocaleString()%></li>
+    </ul>
 </body>
 </html>

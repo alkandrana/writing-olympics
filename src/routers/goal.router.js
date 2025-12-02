@@ -3,8 +3,9 @@ import { Router } from "express";
 import { 
 	getAllGoals, 
 	getGoalById,
-	createGoal,
-	updateGoal,
+	createGoal, //post
+	updateGoal, // put
+    editGoal, //get
 	deleteGoal
 } from "../controllers/goal.controller.js";
 
@@ -12,8 +13,9 @@ const goalRouter = Router();
 
 goalRouter.get("/", getAllGoals);
 goalRouter.get("/:id", getGoalById);
+goalRouter.get("/edit/:id", editGoal);
 goalRouter.post("/", createGoal);
-goalRouter.put("/:id", updateGoal);
+goalRouter.post("/edit/:id", updateGoal);
 goalRouter.delete("/:id", deleteGoal);
 
 
