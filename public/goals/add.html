@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing Olympics</title>
+
+</head>
+<body>
+  <h1>Edit Goal</h1>
+  <form method="post" action="/goals/add"
+      <div>
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" value=""/>
+      </div>
+      <div>
+          <label for="startDate">Start Date</label>
+          <input type="date" name="start" id="startDate" value="">
+      </div>
+      <div>
+          <label for="endDate">End Date</label>
+          <input type="date" name="stop" id="endDate" value="">
+      </div>
+
+    <div>
+        <label for="target">Goal Target</label>
+        <input type="number" name="target" id="target" value="">
+    </div>
+
+    <div>
+        <button type="submit">Save Changes</button>
+    </div>
+  </form>
+</body>
+</html>

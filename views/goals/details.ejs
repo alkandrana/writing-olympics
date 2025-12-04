@@ -22,7 +22,7 @@
       </tr>
       </thead>
       <tbody>
-      <%= for (let ses of goal.sessions){ %>
+      <% for (let ses of goal.sessions){ %>
       <tr>
           <td><%= ses.start.getFullYear() + "-" + ses.start.getMonth() + "-" + ses.start.getDate() %></td>
           <td><%= ses.start.getHours() + ":" + ses.start.getMinutes() + ":" + ses.start.getSeconds() %></td>
@@ -30,7 +30,7 @@
           <td><%= ses.words.toLocaleString() %></td>
           <td><%= ses.scene %></td>
       </tr>
-      <%= } %>
+      <% } %>
       </tbody>
   </table>
   </body>

@@ -76,7 +76,7 @@ export const editGoal = async (req, res) => {
 export const createGoal = async (req, res) => {
 	let target = parseInt(req.body.target);
     if (isNaN(target)){
-        return res.render("add", { goal: req.body});
+        return res.render("add", { goal: req.body, message: "Target must be a nonnegative whole number."});
     } else {
         req.body.target = target;
     }
@@ -95,17 +95,17 @@ export const createGoal = async (req, res) => {
         req.body.target = target;
     }
     console.log(req.body);
-    /*try {
+    try {
 		const goalData = req.body
 		const goal = await goalClient.create({
 			data: goalData,
 		});
 
-		res.status(200).json({ data: goal });
+		res.redirect("/goals");
+
 	} catch (e) {
 		console.log(e);
-	}*/
-    res.redirect(`goals/details/${1}`);
+	}
 };
 
 // update

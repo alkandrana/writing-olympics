@@ -14,7 +14,7 @@ const goalRouter = Router();
 goalRouter.get("/", getAllGoals);
 goalRouter.get("/:id", getGoalById);
 goalRouter.get("/edit/:id", editGoal);
-goalRouter.post("/", createGoal);
+goalRouter.post("/add", createGoal);
 goalRouter.post("/edit/:id", updateGoal);
 goalRouter.delete("/:id", deleteGoal);
 
