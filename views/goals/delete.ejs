@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Goals</title>
+
+</head>
+<body>
+    <h1>Confirm Delete Goal</h1>
+    <h2>Are you sure you want to delete <%= goal.title%>?</h2>
+    <ul>
+      <li>Title: <%= goal.title %></li>  
+      <li>Start Date: <%= goal.start %></li>
+      <li>End Date: <%= goal.stop %></li>
+      <li>Target: <%= goal.target %></li>
+    </ul>
+    <form method="post" action="/goals/delete/<%= goal.id %>">
+      <button type="submit">Delete</button>
+    </form>
+    <a href="/goals/">Cancel</a>
+</body>

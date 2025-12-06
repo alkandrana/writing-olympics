@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Session</title>
+
+  </head>
+  <body>
+    <form method="post" action="/sessions/add">
+      <div>
+          <label for="scene">Scene ID</label>
+          <input type="text" name="sceneId" id="scene" />
+      </div>
+      <div>
+          <label for="startTime">Start Time</label>
+          <input type="datetime-local" name="start" id="startTime" />
+      </div>
+      <div>
+          <label for="endTime">Stop Time</label>
+          <input type="datetime-local" name="stop" id="endTime" />
+      </div>
+
+      <div>
+        <label for="words">Words Written</label>
+        <input type="number" name="words" id="words" />
+      </div>
+
+      <div>
+        <label for="goalId">Goal</label>
+        <select name="goalId" id="goalId">
+          <option value="">select a goal</option>
+          <% for (let g of goals) {%>
+            <option value="<%= g.id %>"><%= g.title %></option>
+          <% } %>
+        </select>
+      </div>
+      <div>
+        <button type="submit">Save Changes</button>
+      </div>
+    </form>
+  </body>
+</html>
+

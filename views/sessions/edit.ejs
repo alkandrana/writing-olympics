@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Session</title>
+
+</head>
+<body>
+  <h1>Edit Session</h1>
+  <form method="post" action="/sessions/edit/<%= session.id %>">
+      <div>
+          <label for="scene">Scene</label>
+          <input type="text" name="sceneId" id="scene" value="<%= locals.session.sceneId>"/><br>
+      </div>
+      <div>
+          <label for="startTime">Start Time</label>
+          <input type="datetime" name="start" id="startTime" value="<%= locals.session.start %>"><br>
+      </div>
+      <div>
+          <label for="endTime">End Time</label>
+          <input type="datetime" name="stop" id="endTime" value="<%= locals.session.stop %>">
+      </div>
+
+    <div>
+        <label for="words">Goal Target</label>
+        <input type="number" name="words" id="words" value="<%= locals.session.words %>"><br>
+    </div>
+
+    <div>
+        <button type="submit">Save Changes</button>
+    </div>
+  </form>
+</body>
+</html>

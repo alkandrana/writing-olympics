@@ -15,7 +15,7 @@ datasource db {
 
 model Goal {
 	id Int @id @default(autoincrement())
-	title String
+	title String @unique
 	start DateTime @db.Date
 	stop DateTime @db.Date
 	target Int

@@ -5,6 +5,7 @@ const goalClient = prisma.goal;
 
 // /goals
 export const getAllGoals = async (req, res) => {
+  console.log("Showing all goals...");
 	try {
 		const allGoals = await goalClient.findMany({
 			include: {
@@ -22,6 +23,7 @@ export const getAllGoals = async (req, res) => {
 // /goals/id
 export const getGoalById = async (req, res) => {
 	const goalId = parseInt(req.params.id);
+  console.log("Showing Details");
 	if (isNaN(goalId)){
 		return res.status(400).send('Invalid goal ID');
 	}
@@ -35,7 +37,7 @@ export const getGoalById = async (req, res) => {
 				sessions: true,
 			},
 		});
-        console.log(goal);
+    //    console.log(goal);
 		res.render("goals/details", { goal: goal });
 	} catch (e) {
 		console.log(e);
@@ -74,6 +76,7 @@ export const editGoal = async (req, res) => {
 // add
 // goals/add/
 export const createGoal = async (req, res) => {
+  console.log("Adding Goal...");
 	let target = parseInt(req.body.target);
     if (isNaN(target)){
         return res.render("add", { goal: req.body, message: "Target must be a nonnegative whole number."});
@@ -96,9 +99,18 @@ export const createGoal = async (req, res) => {
     }
     console.log(req.body);
     try {
-		const goalData = req.body
-		const goal = await goalClient.create({
-			data: goalData,
+      const goalData = req.body
+      const goal = await goalClient.upsert({
+      where: {
+        title: goalData.title
+      },
+      update : {},
+      create: {
+        title: goalData.title,
+        start: goalData.start,
+        stop: goalData.stop,
+        target: goalData.target
+      },
 		});
 
 		res.redirect("/goals");
@@ -145,22 +157,45 @@ export const updateGoal = async (req, res) => {
     res.redirect(`/goals/${goalId}`);
 };
 
+// confirmDelete
+export const confirmDelete = async (req, res) => {
+  const goalId = parseInt(req.params.id);
+  console.log("Confirming");
+  if (isNaN(goalId)){
+    return res.status(400).send('Invalid goal ID');
+  }
+
+  try {
+    const goal = await goalClient.findUnique({
+      where: {
+        id: goalId,
+      },
+      include: {
+        sessions: true,
+      },
+    });
+    res.render(`goals/delete`, { goal: goal });
+  } catch (e){
+      console.log(e);
+  }
+}
 // delete
 export const deleteGoal = async (req, res) => {
 	const goalId = parseInt(req.params.id);
+  console.log("Deleting...");
 	if (isNaN(goalId)){
 		return res.status(400).send('Invalid goal ID');
 	}
-
 	try {
 		const goal = await goalClient.delete({
-			where: {
+      where: {
 				id: goalId,
 			},
 		});
-
-		res.status(200).json({ data: {} });
+    console.log("Goal successfully deleted.");
+    console.log(goal);
 	} catch (e) {
-		console.log(e);
-	}
+		  console.log(e);
+	} 
+	res.redirect("/goals/");
 };
