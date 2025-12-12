@@ -9,7 +9,7 @@ export const getSessionsByGoal = async (req, res) => {
 	try {
 		const allSessions = await sessionClient.findMany({
       where: {
-        goalId: req.id,
+        goalId: req.idTime
 			}
 		});
     console.log(allSessions);
@@ -24,8 +24,6 @@ export const getSessionsByGoal = async (req, res) => {
 export const addSession = async (req, res) => {
 	try {
 		const goals = await goalClient.findMany({});
-    // console.log(goal);
-    console.log(goals);
 		res.render("sessions/add", { goals: goals });
 	} catch (e) {
 		console.log(e);
@@ -40,12 +38,30 @@ export const editSession = async (req, res) => {
     }
 
     try {
-        const session = await sessionClient.findUnique({
-            where: {
-                id: sessionId,
-            }
-        });
-        res.render("goals/edit", { goal: goal});
+      const session = await sessionClient.findUnique({
+          where: {
+              id: sessionId,
+          }
+      });
+      const goals = await goalClient.findMany({});
+      console.log(session);
+      const options = {
+        hour12: false
+      };
+      let startTime = session.start.toLocaleTimeString('en-us', options);
+      let stopTime = session.stop.toLocaleTimeString('en-us', options);
+      let date = session.start.toISOString().split('T')[0];
+     
+      const formSession = {
+        id: session.id,
+        date: date,
+        start: startTime, 
+        stop: stopTime,
+        words: session.words.toLocaleString(),
+        sceneId: session.sceneId,
+        goalId: session.goalId
+      }
+      res.render("sessions/edit", { session: formSession, goals: goals});
     } catch (e) {
         console.log(e);
     }
@@ -56,31 +72,31 @@ export const editSession = async (req, res) => {
 export const createSession = async (req, res) => {
 	let words = parseInt(req.body.words);
   let goalId = parseInt(req.body.goalId);
+  const sessionData = {};
   if (isNaN(words)){
       return res.status(400).send("Words must be a nonnegative whole number.");
-  } else {
-        req.body.words = words;
-        req.body.goalId = goalId;
-    }
-    let startTime = new Date(req.body.start);
-    let endTime = new Date(req.body.stop);
-    // validate dates
-    if (startTime === "Invalid Date" || endTime === "Invalid Date") {
-        return res.status(400).send("Invalid date. Make sure dates are in the format: 'YYYY-MM-DD'");
-    } else {
-        // convert date properties to proper format
-        req.body.start = startTime;
-        req.body.stop = endTime;
-        req.body.words = words;
-    }
-    console.log(req.body);
-    try {
-      const sessionData = req.body
-      const session = await sessionClient.create({
-        data: sessionData,
-		});
+  }
 
-		res.redirect("/sessions");
+  let startTime = new Date(`${req.body.date}, ${req.body.start}`);
+  let endTime = new Date(`${req.body.date}, ${req.body.stop}`);
+  // validate dates
+  if (startTime === "Invalid Date" || endTime === "Invalid Date") {
+      return res.status(400).send("Invalid date. Make sure dates are in the format: 'YYYY-MM-DD'");
+  } else {
+    sessionData.start = startTime;
+    sessionData.stop = endTime;
+    sessionData.words = words;
+    sessionData.sceneId = req.body.sceneId;
+    sessionData.goalId = goalId;
+  }
+  console.log("Saving the session: ")
+  console.log(sessionData);
+  try {
+    const session = await sessionClient.create({
+      data: sessionData,
+    });
+    console.log("Session saved successfully.")
+    res.redirect(`/goals/${session.goalId}`);
 
 	} catch (e) {
 		console.log(e);
@@ -89,56 +105,70 @@ export const createSession = async (req, res) => {
 
 // update
 export const updateSession = async (req, res) => {
-    const goalId = parseInt(req.params.id);
-    let target = parseInt(req.body.target);
-	if (isNaN(goalId) || isNaN(target)) {
+  console.log("Session Object from Form:");
+  console.log(req.body);
+  const goalId = parseInt(req.body.goalId);
+  const sessionId = parseInt(req.params.id);
+  let words = parseInt(req.body.words);
+	if (isNaN(sessionId) || isNaN(words) || isNaN(goalId)) {
 		return res.status(400).send('Not  a number');
 	}
-
-    let startDate = formatDate(req.body.start);
-    let endDate = formatDate(req.body.stop);
-    // validate dates
-    if (startDate === "Invalid date" || endDate === "Invalid date") {
-        return res.redirect('goals/edit', {
-            goal: req.body,
-            message: "Invalid date. Make sure dates are in the format: 'YYYY-MM-DD'"
-        });
-    } else {
-        // convert date properties to proper format
-        req.body.start = startDate;
-        req.body.stop = endDate;
-        req.body.target = target;
-    }
-
-    try {
-        const goalData = req.body;
-        const goal = await goalClient.update({
-            where: {
-                id: goalId,
-            },
-            data: goalData,
-        });
-    } catch (e) {
-        console.log(e);
-    }
-    res.redirect(`/goals/${goalId}`);
+  const sessionData = {
+    start: new Date(`${req.body.date} ${req.body.start}`),
+    stop: new Date(`${req.body.date} ${req.body.stop}`),
+    words: words,
+    sceneId: req.body.sceneId,
+    goalId: goalId
+  } 
+  console.log("Session Object to Update:")
+  console.log(sessionData);
+  try {
+    const session = await sessionClient.update({
+      where: {
+        id: sessionId,
+      },
+      data: sessionData,
+    });
+    console.log("Session successfully updated");
+    res.redirect(`/goals/${session.goalId}`);
+  } catch (e) {
+    console.log(e);
+  }
 };
+
+export const confirmDelete = async (req, res) => {
+  const sessionId = parseInt(req.params.id);
+  if (isNaN(sessionId)){
+    return res.status(400).send('Invalid session ID');
+  }
+
+  try {
+    const session = await sessionClient.findUnique({
+      where: {
+        id: sessionId,
+      },
+    });
+    res.render(`sessions/delete`, { session: session });
+  } catch (e){
+      console.log(e);
+  }
+}
 
 // delete
 export const deleteSession = async (req, res) => {
-	const goalId = parseInt(req.params.id);
-	if (isNaN(goalId)){
-		return res.status(400).send('Invalid goal ID');
+	const sessionId = parseInt(req.params.id);
+	if (isNaN(sessionId)){
+		return res.status(400).send('Invalid session ID');
 	}
 
 	try {
-		const goal = await goalClient.delete({
+		const session = await sessionClient.delete({
 			where: {
-				id: goalId,
+				id: sessionId,
 			},
 		});
 
-		res.status(200).json({ data: {} });
+		res.redirect(`/goals/${session.goalId}`);
 	} catch (e) {
 		console.log(e);
 	}

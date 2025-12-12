@@ -5,14 +5,12 @@ const goalClient = prisma.goal;
 
 // /goals
 export const getAllGoals = async (req, res) => {
-  console.log("Showing all goals...");
 	try {
 		const allGoals = await goalClient.findMany({
 			include: {
 				sessions: true
 			},
 		});
-    console.log(allGoals);
     res.render("goals/index", { goals: allGoals })
 	} catch (e) {
 		console.log(e);
@@ -23,7 +21,6 @@ export const getAllGoals = async (req, res) => {
 // /goals/id
 export const getGoalById = async (req, res) => {
 	const goalId = parseInt(req.params.id);
-  console.log("Showing Details");
 	if (isNaN(goalId)){
 		return res.status(400).send('Invalid goal ID');
 	}
@@ -76,7 +73,6 @@ export const editGoal = async (req, res) => {
 // add
 // goals/add/
 export const createGoal = async (req, res) => {
-  console.log("Adding Goal...");
 	let target = parseInt(req.body.target);
     if (isNaN(target)){
         return res.render("add", { goal: req.body, message: "Target must be a nonnegative whole number."});
@@ -97,7 +93,6 @@ export const createGoal = async (req, res) => {
         req.body.stop = endDate;
         req.body.target = target;
     }
-    console.log(req.body);
     try {
       const goalData = req.body
       const goal = await goalClient.upsert({
@@ -160,7 +155,6 @@ export const updateGoal = async (req, res) => {
 // confirmDelete
 export const confirmDelete = async (req, res) => {
   const goalId = parseInt(req.params.id);
-  console.log("Confirming");
   if (isNaN(goalId)){
     return res.status(400).send('Invalid goal ID');
   }
@@ -182,7 +176,6 @@ export const confirmDelete = async (req, res) => {
 // delete
 export const deleteGoal = async (req, res) => {
 	const goalId = parseInt(req.params.id);
-  console.log("Deleting...");
 	if (isNaN(goalId)){
 		return res.status(400).send('Invalid goal ID');
 	}
@@ -193,7 +186,6 @@ export const deleteGoal = async (req, res) => {
 			},
 		});
     console.log("Goal successfully deleted.");
-    console.log(goal);
 	} catch (e) {
 		  console.log(e);
 	} 

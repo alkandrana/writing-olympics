@@ -1,24 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Goals</title>
-
-</head>
-<body>
-<h1>Goals:</h1>
+<% title = 'Goals' %>
+<div class="row">
+  <h1 class="col">Goals:</h1>
+  <a href="/goals/add.html" class="col-2 btn btn-success align-self-end">Create New</a>
+</div>
 <% if (goals.length === 0) { %>
     <h3>No Goals Found</h3>
-<% } else { 
-    for (let g of goals){%>
-      <ul>
-        <li><%= g.title%></li>
-        <li><%= (g.start.getUTCMonth() + 1) + "-" + g.start.getUTCDate() + "-" + g.start.getUTCFullYear() %></li>
-        <li><%= (g.stop.getUTCMonth() + 1) + "-" + g.stop.getUTCDate() + "-" + g.stop.getUTCFullYear() %></li>
-        <li><%= g.target.toLocaleString() %></li>
-        <li><a href="/goals/<%= g.id %>">View Details</a></li>
-      </ul>
-    <% } %>
+    <% } else { %>
+    <div class="row">
+      <% for (let g of goals){ %>
+        <div class="col card bg-dark text-light w-50 m-1">
+          <div class="card-body">
+            <h5 class="card-title"><%= g.title%></h5>
+            <p class="card-text bg-info">
+              <ul class="list-group bg-info">
+                <li class="list-group-item bg-info">
+                  Start Date: <%= (g.start.getUTCMonth() + 1) + "-" + g.start.getUTCDate() + "-" + g.start.getUTCFullYear() %>
+                </li>
+                <li class="list-group-item bg-info">
+                  End Date: <%= (g.stop.getUTCMonth() + 1) + "-" + g.stop.getUTCDate() + "-" + g.stop.getUTCFullYear() %>
+                </li>
+                <li class="list-group-item bg-info">
+                  Target Word Count: <%= g.target.toLocaleString() %>
+                </li>
+              </ul>
+            <a href="/goals/<%= g.id %>" class="card-link">View Details</a>
+          </div>
+        </div>
+      <% } %>
+    </div>
 <% } %>
-</body>
-</html>

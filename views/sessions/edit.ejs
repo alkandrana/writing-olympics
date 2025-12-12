@@ -1,33 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Session</title>
-
-</head>
-<body>
-  <h1>Edit Session</h1>
+<% title = `Edit ${session.title}` %>
+<h1>Edit Session</h1>
   <form method="post" action="/sessions/edit/<%= session.id %>">
-      <div>
-          <label for="scene">Scene</label>
-          <input type="text" name="sceneId" id="scene" value="<%= locals.session.sceneId>"/><br>
+      <div class="row">
+        <div class="col-2">
+          <label for="scene" class="col-form-label">Scene</label>
+        </div>
+        <input type="text" name="sceneId" id="scene" value="<%= locals.session.sceneId %>" class="col form-control"/>
       </div>
-      <div>
-          <label for="startTime">Start Time</label>
-          <input type="datetime" name="start" id="startTime" value="<%= locals.session.start %>"><br>
-      </div>
-      <div>
-          <label for="endTime">End Time</label>
-          <input type="datetime" name="stop" id="endTime" value="<%= locals.session.stop %>">
+      <div class="row">
+        <div class="col-2">
+          <label for="date" class="col-form-label">Date</label>
+        </div>
+        <input type="date" name="date" id="date" value="<%= locals.session.date %>" class="col form-control">
       </div>
 
-    <div>
-        <label for="words">Goal Target</label>
-        <input type="number" name="words" id="words" value="<%= locals.session.words %>"><br>
+      <div class="row">
+        <div class="col-2">
+          <label for="startTime" class="col-form-label">Start Time</label>
+        </div>
+        <input type="time" step="1" name="start" id="startTime" value="<%= locals.session.start %>" class="col form-control">
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <label for="endTime" class="col-form-label">End Time</label>
+        </div>
+        <input type="time" step="1" name="stop" id="endTime" value="<%= locals.session.stop %>" class="col form-control">
+      </div>
+
+    <div class="row">
+      <div class="col-2">
+        <label for="words" class="col-form-label">Words Written</label>
+      </div>
+      <input type="number" name="words" id="words" value="<%= locals.session.words %>" class="col form-control">
     </div>
-
+    <div class="row">
+      <div class="col-2">
+        <label class="col-form-label" for="goalId">Goal</label>
+      </div>
+      <select name="goalId" id="goalId" class="col form-control">
+        <option value="">select a goal</option>
+        <% for (let g of goals) {%>
+          <option value="<%= g.id %>"><%= g.title %></option>
+        <% } %>
+      </select>
+    </div>
     <div>
-        <button type="submit">Save Changes</button>
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        <a href="/goals/<%= session.goalId %>" class="btn btn-warning">Cancel</a>
     </div>
   </form>
 </body>
