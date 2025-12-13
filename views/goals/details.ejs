@@ -1,9 +1,10 @@
 <% title = `${goal.title} Details` %>
 <h1><%= goal.title %></h1>
 <ul class="row list-unstyled bg-info">
-    <li class="col">Start Date: <%= (goal.start.getUTCMonth() + 1) + "-" + goal.start.getUTCDate() + "-" + goal.start.getUTCFullYear() %></li>
+    <li class="col">Start Date: <%= goal.start.toLocaleDateString() %></li>
     <li class="col">End Date: <%= (goal.stop.getUTCMonth() + 1) + "-" + goal.stop.getUTCDate() + "-" + goal.stop.getUTCFullYear() %></li>
     <li class="col">Target: <%= goal.target.toLocaleString() %></li>
+    <li class="col">Written: <%=  %>
     <li class="col"><a href="/goals/delete/<%= goal.id %>" class="link-danger">Delete</a></li>
     <li class="col"><a href="/goals/edit/<%= goal.id %>" class="link-primary">Edit</a></li>
 

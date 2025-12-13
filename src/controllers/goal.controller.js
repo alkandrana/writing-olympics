@@ -20,22 +20,44 @@ export const getAllGoals = async (req, res) => {
 // get unique
 // /goals/id
 export const getGoalById = async (req, res) => {
-	const goalId = parseInt(req.params.id);
-	if (isNaN(goalId)){
-		return res.status(400).send('Invalid goal ID');
-	}
-
 	try {
 		const goal = await goalClient.findUnique({
 			where: {
-				id: goalId,
+				id: Number(req.params.id),
 			},
 			include: {
-				sessions: true,
+				sessions: {
+          orderBy: {start: 'desc'}
+        },
 			},
 		});
+
+    if (!goal) {
+      return res.status(404).send("Goal not found.");
+    }
+    // Word Count Calculations
+    // Words written so far
+    const current = goal.sessions.reduce((sum, session) => {
+      sum + session.words
+    }, 0);
+    // Words remaining
+    const wordsRemaining = Math.max(0, goal.target - current);
+    // Daily target
+    const convertToDays = 1000 * 60 * 60 * 24;
+    // add one to allow writing on day of goal deadline
+    const daily = wordsRemaining / ((goal.stop - goal.start) / convertToDays + 1);
+    // percentage
+    const percent = Math.min(100, Math.floor((current / goal.target) * 100));
     //    console.log(goal);
-		res.render("goals/details", { goal: goal });
+		res.render("goals/details", { 
+      goal: goal,
+      stats: {
+        current: current,
+        remaining: wordsRemaining,
+        dailyTarget: daily,
+        percent: percent
+      }
+    });
 	} catch (e) {
 		console.log(e);
 	}

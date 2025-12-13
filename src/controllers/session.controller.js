@@ -167,7 +167,7 @@ export const deleteSession = async (req, res) => {
 				id: sessionId,
 			},
 		});
-
+    console.log("Session successfully deleted.");
 		res.redirect(`/goals/${session.goalId}`);
 	} catch (e) {
 		console.log(e);

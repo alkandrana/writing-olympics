@@ -40,7 +40,7 @@
       <select name="goalId" id="goalId" class="col form-control">
         <option value="">select a goal</option>
         <% for (let g of goals) {%>
-          <option value="<%= g.id %>"><%= g.title %></option>
+          <option value="<%= g.id %>"<%= g.id === session.goalId ? "selected" : "" %>><%= g.title %></option>
         <% } %>
       </select>
     </div>
