@@ -1,0 +1,7 @@
+id,status,priority,epic,description
+LND,open,1,Landing,Landing page + basic navigation flow,
+ATH,open,2,User Logins,Authentication + multi-user ownership,
+UX,open,3,UI,Bootstrap/UI polish pass
+SCR,open,4,Security,Security + production hardening
+DPL,open,5,Deploy,Deployment to hosting service
+PGR,open,0,Postgres,Convert database to PostgreSQL
