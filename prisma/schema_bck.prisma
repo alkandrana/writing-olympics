@@ -15,7 +15,7 @@ datasource db {
 
 model Goal {
 	id Int @id @default(autoincrement())
-	title String @unique
+	title String
 	start DateTime @db.Date
 	stop DateTime @db.Date
 	target Int
@@ -28,6 +28,6 @@ model Session {
 	stop DateTime
 	words Int
   sceneId String
-	goal Goal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+	goal Goal @relation(fields: [goalId], references: [id])
 	goalId Int
 }

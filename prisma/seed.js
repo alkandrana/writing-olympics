@@ -1,0 +1,441 @@
+import { prisma } from '../lib/prisma.js';
+
+async function main(){
+  const rdc = await prisma.goal.upsert({
+    where: { title: 'RDC 2025' },
+    update: {},
+    create: {
+      title: 'RDC 2025',
+      start: '2025-11-01T00:00:00.000Z',
+      stop: '2025-11-30T00:00:00.000Z',
+      target: 40000,
+      sessions: {
+        create: [
+          {
+            start: new Date('2025-11-01T12:48:00'),
+            stop: new Date('2025-11-01T13:23:00'),
+            words: 1808,
+            sceneId: 'BG-001F'
+          },
+          {
+            start: new Date('2025-11-01T14:22:00'),
+            stop: new Date('2025-11-01T15:21:00'),
+            words: 1633,
+            sceneId: 'BG-002F'
+          },
+          {
+            start: new Date('2025-11-01T16:09:00'),
+            stop: new Date('2025-11-01T16:48:00'),
+            words: 359,
+            sceneId: 'BG-002F'
+          },
+          {
+            start: new Date('2025-11-01T19:47'),
+            stop: new Date('2025-11-01'),
+            words: 2154,
+            sceneId: 'BG-003F'
+          },
+          {
+            start: new Date('2025-11-03T18:44'),
+            stop: new Date('2025-11-03T19:04'),
+            words: 327,
+            sceneId: 'BG-003F'
+          },
+          {
+            start: new Date('2025-11-04T12:44'),
+            stop: new Date('2025-11-04T13:09'),
+            words: 269,
+            sceneId: 'BG-003F'
+          },
+          {
+            start: new Date('2025-11-04T13:50'),
+            stop: new Date('2025-11-04'),
+            words: 563,
+            sceneId: 'BG-001A'
+          },
+          {
+            start: new Date('2025-11-04T17:38'),
+            stop: new Date('2025-11-04T18:04'),
+            words: 392,
+            sceneId: 'BG-001A'
+          },
+          {
+            start: new Date('2025-11-04T18:45'),
+            stop: new Date('2025-11-04T19:29'),
+            words: 586,
+            sceneId: 'BG-001A'
+          },
+          {
+            start: new Date('2025-11-13T17:33:49'),
+            stop: new Date('2025-11-13T18:37:25'),
+            words: 547,
+            sceneId: 'AKT-002'
+          },
+          {
+            start: new Date('2025-11-13T22:00:13'),
+            stop: new Date('2025-11-13T22:59:38'),
+            words: 717,
+            sceneId: 'AKT-002'
+          },
+          {
+            start: new Date('2025-11-14T23:12:01'),
+            stop: new Date('2025-11-14T00:29:41'),
+            words: 701,
+            sceneId: 'AKT-003'
+          },
+          {
+            start: new Date('2025-11-14T20:50:50'),
+            stop: new Date('2025-11-14T22:14:50'),
+            words: 1150,
+            sceneId: 'AKT-003'
+          },
+          {
+            start: new Date('2025-11-15T17:51:03'),
+            stop: new Date('2025-11-15T18:22:31'),
+            words: 545,
+            sceneId: 'AKT-003'
+          },
+          {
+            start: new Date('2025-11-15T18:52:45'),
+            stop: new Date('2025-11-15T19:03:30'),
+            words: 106,
+            sceneId: 'AKT-003'
+          },
+          {
+            start: new Date('2025-11-15T19:23:43'),
+            stop: new Date('2025-11-15T19:41:05'),
+            words: 276,
+            sceneId: 'AKT-004'
+          },
+          {
+            start: new Date('2025-11-15T22:38:09'),
+            stop: new Date('2025-11-15T23:01:00'),
+            words: 460,
+            sceneId: 'AKT-004'
+          },
+          {
+            start: new Date('2025-11-18T21:45:18'),
+            stop: new Date('2025-11-18T00:19:24'),
+            words: 477,
+            sceneId: 'DP-001'
+          },
+          {
+            start: new Date('2025-11-19T10:05:00'),
+            stop: new Date('2025-11-19T10:08:49'),
+            words: 32,
+            sceneId: 'DP-001'
+          },
+          {
+            start: new Date('2025-11-19T14:20:25'),
+            stop: new Date('2025-11-19T15:04:08'),
+            words: 612,
+            sceneId: 'DP-001'
+          },
+          {
+            start: new Date('2025-11-19T16:35:20'),
+            stop: new Date('2025-11-19T17:13:03'),
+            words: 511,
+            sceneId: 'DP-001'
+          },
+          {
+            start: new Date('2025-11-19T19:18:27'),
+            stop: new Date('2025-11-19T19:48:24'),
+            words: 584,
+            sceneId: 'DP-001'
+          },
+          {
+            start: new Date('2025-11-19T19:59:36'),
+            stop: new Date('2025-11-19T20:30:21'),
+            words: 540,
+            sceneId: 'DP-001'
+          },
+          {
+            start: new Date('2025-11-19T21:21:49'),
+            stop: new Date('2025-11-19T21:54:05'),
+            words: 519,
+            sceneId: 'DP-001'
+          },
+          {
+            start: new Date('2025-11-19T22:57:35'),
+            stop: new Date('2025-11-19T23:31:46'),
+            words: 560,
+            sceneId: 'DP-002'
+          },
+          {
+            start: new Date('2025-11-19T23:37:09'),
+            stop: new Date('2025-11-19T23:59:59'),
+            words: 426,
+            sceneId: 'DP-002'
+          },
+          {
+            start: new Date('2025-11-20T11:07:57'),
+            stop: new Date('2025-11-20T12:32:26'),
+            words: 786,
+            sceneId: 'DP-002'
+          },
+          {
+            start: new Date('2025-11-20T15:46:59'),
+            stop: new Date('2025-11-20T15:56:10'),
+            words: 152,
+            sceneId: 'DP-002'
+          },
+          {
+            start: new Date('2025-11-20T16:00:45'),
+            stop: new Date('2025-11-20T16:43:00'),
+            words: 579,
+            sceneId: 'DP-003'
+          },
+          {
+            start: new Date('2025-11-20T17:40:37'),
+            stop: new Date('2025-11-20T18:05:06'),
+            words: 448,
+            sceneId: 'DP-003'
+          },
+          {
+            start: new Date('2025-11-20T18:46:07'),
+            stop: new Date('2025-11-20T19:17:16'),
+            words: 662,
+            sceneId: 'DP-003'
+          },
+          {
+            start: new Date('2025-11-20T19:45:11'),
+            stop: new Date('2025-11-20T20:36:23'),
+            words: 526,
+            sceneId: 'DP-003'
+          },
+          {
+            start: new Date('2025-11-20T20:46:13'),
+            stop: new Date('2025-11-20T21:38:29'),
+            words: 829,
+            sceneId: 'DP-003'
+          },
+          {
+            start: new Date('2025-11-21T18:34:11'),
+            stop: new Date('2025-11-21T19:13:43'),
+            words: 562,
+            sceneId: 'DP-003'
+          },
+          {
+            start: new Date('2025-11-21T20:36:02'),
+            stop: new Date('2025-11-21T21:22:28'),
+            words: 508,
+            sceneId: 'DP-003'
+          },
+          {
+            start: new Date('2025-11-21T21:41:33'),
+            stop: new Date('2025-11-21T22:00:27'),
+            words: 346,
+            sceneId: 'DP-003'
+          },
+          {
+            start: new Date('2025-11-21T22:20:58'),
+            stop: new Date('2025-11-21T23:02:49'),
+            words: 641,
+            sceneId: 'DP-004'
+          },
+          {
+            start: new Date('2025-11-21T23:08:57'),
+            stop: new Date('2025-11-21T23:37:00'),
+            words: 370,
+            sceneId: 'DP-004'
+          },
+          {
+            start: new Date('2025-11-22T08:54:55'),
+            stop: new Date('2025-11-22T09:57:05'),
+            words: 500,
+            sceneId: 'DP-004'
+          },
+          {
+            start: new Date('2025-11-22T10:06:06'),
+            stop: new Date('2025-11-22T10:44:38'),
+            words: 517,
+            sceneId: 'DP-004'
+          },
+          {
+            start: new Date('2025-11-22T12:21:03'),
+            stop: new Date('2025-11-22T12:56:18'),
+            words: 540,
+            sceneId: 'DP-004'
+          },
+          {
+            start: new Date('2025-11-22T14:47:10'),
+            stop: new Date('2025-11-22T15:54:54'),
+            words: 686,
+            sceneId: 'DP-004'
+          },
+          {
+            start: new Date('2025-11-22T16:06:23'),
+            stop: new Date('2025-11-22T17:05:13'),
+            words: 522,
+            sceneId: 'DP-004'
+          },
+          {
+            start: new Date('2025-11-22T18:41:39'),
+            stop: new Date('2025-11-22T19:03:00'),
+            words: 312,
+            sceneId: 'DP-004'
+          },
+          {
+            start: new Date('2025-11-22T20:49:51'),
+            stop: new Date('2025-11-22T22:09:37'),
+            words: 730,
+            sceneId: 'DP-004'
+          },
+          {
+            start: new Date('2025-11-22T23:16:42'),
+            stop: new Date('2025-11-22T23:50:31'),
+            words: 224,
+            sceneId: 'DP-004'
+          },
+          {
+            start: new Date('2025-11-24T20:05:35'),
+            stop: new Date('2025-11-24T21:07:08'),
+            words: 606,
+            sceneId: 'BG-001A'
+          },
+          {
+            start: new Date('2025-11-24T21:37:28'),
+            stop: new Date('2025-11-24T22:06:28'),
+            words: 455,
+            sceneId: 'BG-001A'
+          },
+          {
+            start: new Date('2025-11-24T22:19:13'),
+            stop: new Date('2025-11-24T00:17:51'),
+            words: 517,
+            sceneId: 'BG-002A'
+          },
+          {
+            start: new Date('2025-11-24T14:21:38'),
+            stop: new Date('2025-11-24T15:03:02'),
+            words: 86,
+            sceneId: 'DP-004'
+          },
+          {
+            start: new Date('2025-11-26T17:52:18'),
+            stop: new Date('2025-11-26T18:30:08'),
+            words: 595,
+            sceneId: 'BG-002A'
+          },
+          {
+            start: new Date('2025-11-26T18:56:03'),
+            stop: new Date('2025-11-26T19:31:23'),
+            words: 500,
+            sceneId: 'BG-003A'
+          },
+          {
+            start: new Date('2025-11-26T19:36:19'),
+            stop: new Date('2025-11-26T20:14:48'),
+            words: 582,
+            sceneId: 'BG-003A'
+          },
+          {
+            start: new Date('2025-11-26T20:42:00'),
+            stop: new Date('2025-11-26T20:50:18'),
+            words: 116,
+            sceneId: 'BG-003A'
+          },
+          {
+            start: new Date('2025-11-26T20:59:04'),
+            stop: new Date('2025-11-26T21:31:56'),
+            words: 532,
+            sceneId: 'BG-004A'
+          },
+          {
+            start: new Date('2025-11-26T21:41:53'),
+            stop: new Date('2025-11-26T21:51:19'),
+            words: 148,
+            sceneId: 'BG-003A'
+          },
+          {
+            start: new Date('2025-11-26T22:00:54'),
+            stop: new Date('2025-11-26T22:46:18'),
+            words: 647,
+            sceneId: 'BG-004A'
+          },
+          {
+            start: new Date('2025-11-28T13:09:07'),
+            stop: new Date('2025-11-28T15:08:00'),
+            words: 602,
+            sceneId: 'BG-005A'
+          },
+          {
+            start: new Date('2025-11-28T17:58:37'),
+            stop: new Date('2025-11-28T18:46:48'),
+            words: 726,
+            sceneId: 'BG-005A'
+          },
+          {
+            start: new Date('2025-11-28T19:15:59'),
+            stop: new Date('2025-11-28T20:04:31'),
+            words: 680,
+            sceneId: 'BG-005A'
+          },
+          {
+            start: new Date('2025-11-29T16:34:03'),
+            stop: new Date('2025-11-29T16:56:59'),
+            words: 226,
+            sceneId: 'BG-005A'
+          },
+          {
+            start: new Date('2025-11-29T17:02:44'),
+            stop: new Date('2025-11-29T17:38:10'),
+            words: 544,
+            sceneId: 'BG-006A'
+          },
+          {
+            start: new Date('2025-11-29T18:15:44'),
+            stop: new Date('2025-11-29T18:52:49'),
+            words: 642,
+            sceneId: 'BG-006A'
+          },
+          {
+            start: new Date('2025-11-29T20:13:06'),
+            stop: new Date('2025-11-29T20:53:41'),
+            words: 615,
+            sceneId: 'BG-006A'
+          },
+          {
+            start: new Date('2025-11-29T21:07:11'),
+            stop: new Date('2025-11-29T22:09:22'),
+            words: 1096,
+            sceneId: 'BG-006A'
+          },
+          {
+            start: new Date('2025-11-30T12:18:34'),
+            stop: new Date('2025-11-30T13:02:35'),
+            words: 766,
+            sceneId: 'BG-007A'
+          },
+          {
+            start: new Date('2025-11-30T15:23:32'),
+            stop: new Date('2025-11-30T16:29:27'),
+            words: 1057,
+            sceneId: 'BG-007A'
+          },
+          {
+            start: new Date('2025-11-30T17:23:11'),
+            stop: new Date('2025-11-30T17:49:05'),
+            words: 285,
+            sceneId: 'BG-008A'
+          },
+          {
+            start: new Date('2025-11-30T17:54:22'),
+            stop: new Date('2025-11-30T18:34:20'),
+            words: 808,
+            sceneId: 'BG-008A'
+          }
+        ]
+      }
+    }
+  });
+  console.log(rdc);
+}
+
+main().then(async () => {
+  await prisma.$disconnect();
+}).catch(async (e) => {
+  console.error(e);
+  await prisma.$disconnect();
+  process.exit(1);
+})

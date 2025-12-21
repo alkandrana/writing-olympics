@@ -22,11 +22,10 @@ print_epic() {
   epic_id="$1"
   awk -F, -v id="$epic_id" '                              
     BEGIN {
-      green="\033[92m"
+      green="\033[32m"
       yellow="\033[33m"
       reset="\033[0m"   
     }
-    NR == 1 {print $0}
     $3 == id {
       if ($2=="done") { 
         printf "%s%s%s\n", green, $0, reset

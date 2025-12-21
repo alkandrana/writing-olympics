@@ -25,7 +25,8 @@ id,status,epic,title,created
 24,open,DPL,Deploy + smoke test core flows,
 25,done,PGR,Create local Postgres database + user for Writing Olympics,2025-12-20
 26,done,PGR,Update schema.prisma datasource provider to postgresql + update DATABASE_URL,2025-12-20
-27,in-progress,PGR,Recreate schema in Postgres via Prisma migrations,2025-12-20
-28,open,PGR,Verify CRUD flows (projects/sessions) against Postgres,
-29,open,PGR,Add seed workflow (so test data is one command),
+27,done,PGR,Recreate schema in Postgres via Prisma migrations,2025-12-20
+28,done,PGR,Verify CRUD flows (projects/sessions) against Postgres,2025-12-20
+29,done,PGR,Add seed workflow (so test data is one command),2025-12-21
 30,open,LND,Design Landing Page,2025-12-20,
+31,done,PGR,Update lib/prisma.js adapter to use Postgres instead of Mariadb,2025-12-20
